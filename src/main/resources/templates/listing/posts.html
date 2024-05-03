@@ -4,7 +4,7 @@
   <thead class="thead-light">
   <tr>
     <th scope="col">Title</th>
-    <th scope="col">Address</th>
+    <th scope="col">Author</th>
     <th scope="col">Price</th>
     <th scope="col"></th>
   </tr>
@@ -12,10 +12,10 @@
   <tbody>
   <tr th:each="post : ${posts}">
     <td th:text="${post.title}"></td>
-    <td th:text="${post.address}"></td>
+    <td th:text="${post.author}"></td>
     <td th:text="${post.price}"></td>
     <td>
-      <a th:href="@{'/post/postDetail?id=' + ${post.id}}" class="btn btn-primary">Detail</a>
+      <a th:href="@{'/post/postDetail/' + ${post.id}}" class="btn btn-primary">Detail</a>
       <a th:href="@{'/post/delete/' + ${post.id}}" sec:authorize="hasRole('ADMIN')" class="btn btn-danger">Delete</a>
     </td>
   </tr>

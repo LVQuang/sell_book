@@ -6,6 +6,7 @@ import dev.lvpq.sell_book.dto.response.PostDetailResponse;
 import dev.lvpq.sell_book.dto.response.PostListingResponse;
 import dev.lvpq.sell_book.entity.Post;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")

@@ -55,49 +55,13 @@ public class PostService {
     }
 
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public List<Post> getMyPosts() {
-        var user = userService.getCurrentUser();
-        return postRepository.findByUser(user);
-    }
-
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public void delete(String id) {
-        var post = postRepository
-                .findById(id).orElseThrow(() -> new AppException(ErrorCode.ITEM_DONT_EXISTS));
-
-        var user = post.getUser();
-        user.getPosts().remove(post);
-        userRepository.save(user);
-
-        post.setUser(null);
-        postRepository.save(post);
-
         postRepository.deleteById(id);
     }
 
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public PostDetailResponse create(PostRequest request) {
         var post = postMapper.convertEntity(request);
-        var userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        var user = userRepository.findByName(userName).orElseThrow(()
-                -> new AppException(ErrorCode.ITEM_DONT_EXISTS));
-
-        var userPost = user.getPosts();
-        userPost.add(post);
-
-        post.setUser(user);
-        user.setPosts(userPost);
-
-        post.setPostDate(LocalDate.now());
-        post.setAvailable(PostState.YES);
-        post.setTitle(request.getTitle());
-        post.setAddress(request.getAddress());
-        post.setPrice(request.getPrice());
-        post.setDescription(request.getDescription());
-        post.setType(TypePost.valueOf(request.getType()));
-
-        userRepository.save(user);
-
         return postMapper.toResponse(postRepository.save(post));
     }
 
@@ -105,12 +69,8 @@ public class PostService {
     public PostDetailResponse update(PostRequest request, String id) {
         var post = postRepository.findById(id).orElseThrow(()
                 -> new AppException(ErrorCode.ITEM_DONT_EXISTS) );
-
         postMapper.update(post, request);
-        post.setAvailable(PostState.valueOf(request.getAvailable()));
-
         postRepository.save(post);
-
         return postMapper.toResponse(post);
     }
 }

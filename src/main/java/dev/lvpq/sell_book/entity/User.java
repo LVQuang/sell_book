@@ -25,6 +25,4 @@ public class User {
     UserGender gender;
     @ManyToMany
     Set<Role> roles;
-    @OneToMany(mappedBy = "user")
-    Set<Post> posts;
 }

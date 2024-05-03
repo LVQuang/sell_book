@@ -12,6 +12,6 @@ import lombok.experimental.FieldDefaults;
 public class PostListingResponse {
     String id;
     String title;
-    String address;
+    String author;
     Double price;
 }

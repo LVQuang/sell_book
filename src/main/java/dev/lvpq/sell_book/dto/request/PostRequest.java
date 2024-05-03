@@ -11,9 +11,9 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PostRequest {
     String title;
-    String type;
-    String address;
-    String description;
+    String author;
+    String country;
+    String category;
     Double price;
-    String available;
+    Integer pageSize;
 }

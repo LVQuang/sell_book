@@ -281,17 +281,19 @@
                 <div class="col-lg-8 col-md-12 left-box">
                     <div class="card single_post">
                         <div class="body">
-                            <h1 th:text="${postDetailRep.title}">Title</h1>
-                            <h4 th:text="${#temporals.format(postDetailRep.postDate, 'yyyy MMMM d')}">Posted Date</h4>
+                            <h1 th:text="'Title: ' + ${postDetailRep.title}"></h1>
                             <div class="img-post">
                                 <div th:replace = "~{fragments/slider :: slider}"></div>
                             </div>
-                            <h3>Description</h3>
-                            <p th:text="${postDetailRep.description}">
-                                Text description of post
-                            </p>
-                            <h4 th:text="${postDetailRep.address}">Address</h4>
-                            <h4 th:text="${postDetailRep.price}">Price</h4>
+                            <h3 th:text="'Author: ' + ${postDetailRep.author}"></h3>
+                            <br>
+                            <h4 th:text="'Country: ' + ${postDetailRep.country}"></h4>
+                            <br>
+                            <p th:text="'Category: ' + ${postDetailRep.category}"></p>
+                            <br>
+                            <p th:text="'price: ' + ${postDetailRep.price}">Price</p>
+                            <br>
+                            <p th:text="'pagesize: ' + ${postDetailRep.pageSize}">Price</p>
                         </div>
                     </div>
 

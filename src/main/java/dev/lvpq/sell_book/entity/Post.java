@@ -19,12 +19,9 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.UUID)
     String id;
     String title;
-    TypePost type;
-    String address;
-    String description;
+    String author;
+    String country;
+    String category;
     Double price;
-    LocalDate postDate;
-    PostState available;
-    @ManyToOne
-    User user;
+    Integer pageSize;
 }

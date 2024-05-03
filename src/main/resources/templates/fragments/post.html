@@ -17,51 +17,49 @@
                   method="post"
                   role="form"
                   th:action="@{/post/addPost}"
-                  th:object="${user}"
-            >
-                <input type="hidden" name="id" th:value="${id}">
+                  th:object="${post}">
 
                 <h2 class="text-center mb-3">Basic information</h2>
 
                 <input class="form-control mb-3"
-                       type="text" name="name"
+                       type="text"
                        placeholder="Title"
                        th:field="*{title}"
                        required>
 
                 <input class="form-control mb-3"
-                       type="text" name="address"
-                       placeholder="Address"
-                       th:field="*{address}"
+                       type="text"
+                       placeholder="Author"
+                       th:field="*{author}"
                        required>
 
-                <textarea class="form-control mb-3"
-                          rows="5"
-                          placeholder="Description"
-                          th:field="*{description}"
-                          required></textarea>
+                <input class="form-control mb-3"
+                       type="text"
+                       placeholder="Country"
+                       th:field="*{country}"
+                       required>
 
                 <input class="form-control mb-3"
                        type="number"
-                       name="number"
                        placeholder="Price"
                        th:field="*{price}"
                        required>
 
                 <input class="form-control mb-3"
-                       type="text" name="date"
-                       placeholder="Posting Date"
-                       th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"
+                       type="number"
+                       placeholder="PageSize"
+                       th:field="*{pageSize}"
                        required>
 
                 <div class="col-md-12 mt-3 mb-3">
-                    <label class="mb-3 mr-1">Type: </label>
-
+                    <label class="mb-3 mr-1">category: </label>
                     <select class="form-select form-select-sm"
                             aria-label=".form-select-sm example"
-                            th:field="*{type}">
-                        <option th:value="'RENT'" th:text="Rent" selected></option>
-                        <option th:value="'BUY'" th:text="Buy"></option>
+                            th:field="*{category}">
+                        <option value="Romance" th:text="Romance" selected></option>
+                        <option value="Detective" th:text="Detective"></option>
+                        <option value="Action" th:text="Action"></option>
+                        <option value="History" th:text="History"></option>
                     </select>
 
                 </div>

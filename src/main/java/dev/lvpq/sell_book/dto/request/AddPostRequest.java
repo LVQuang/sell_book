@@ -15,13 +15,13 @@ public class AddPostRequest {
     @NonNull
     String title;
     @NonNull
-    String address;
+    String author;
     @NonNull
-    String description;
+    String country;
+    @NonNull
+    String category;
     @NonNull
     Double price;
     @NonNull
-    String postDate;
-    @NonNull
-    String type;
+    Integer pageSize;
 }

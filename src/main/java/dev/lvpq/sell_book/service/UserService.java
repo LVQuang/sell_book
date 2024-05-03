@@ -22,14 +22,6 @@ public class UserService {
     UserRepository userRepository;
     UserMapper userMapper;
 
-
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public UserResponse getById(String id) {
-        var user = userRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.ITEM_DONT_EXISTS));
-        return userMapper.toResponse(user);
-    }
-
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public User getCurrentUser() {
         var name = SecurityContextHolder.getContext().getAuthentication().getName();

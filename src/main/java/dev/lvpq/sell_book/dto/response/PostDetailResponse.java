@@ -16,11 +16,9 @@ import java.util.Set;
 public class PostDetailResponse {
     String id;
     String title;
-    String type;
-    String address;
-    String description;
+    String author;
+    String country;
+    String category;
     Double price;
-    LocalDate postDate;
-    PostState available;
-    UserResponse user;
+    Integer pageSize;
 }

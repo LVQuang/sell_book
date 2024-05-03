@@ -29,31 +29,29 @@ public class PostController {
         return "index";
     }
 
-    @GetMapping("/postDetail")
-    String getPostDetail(Model model, @RequestParam("id") String postId) {
-        PostDetailResponse postDetailResponse = postService.getById(postId);
-        model.addAttribute("postDetailRep", postDetailResponse);
+    @GetMapping("/postDetail/{id}")
+    String getPostDetail(Model model, @PathVariable String id) {
+        var postResponse = postService.getById(id);
+        model.addAttribute("postDetailRep", postResponse);
         return "/layout/postDetail";
     }
 
     @GetMapping("/addPost")
     String getAddPost(Model model) {
-        AddPostRequest user = new AddPostRequest();
-        model.addAttribute("user", user);
+        AddPostRequest post = new AddPostRequest();
+        model.addAttribute("post", post);
         return "add/addPost";
     }
-
-//    Fix again here
     @PostMapping("/addPost")
-    String postAddPost(@Valid @ModelAttribute("user") AddPostRequest user) {
-        var request = postMapper.toAddPostRequest(user);
+    String postAddPost(@Valid @ModelAttribute("post") AddPostRequest post) {
+        var request = postMapper.toAddPostRequest(post);
         postService.create(request);
         return "redirect:/post";
     }
 
-    @GetMapping("/delete/{pageNumber}")
-    String deletePost(@PathVariable String pageNumber) {
-        postService.delete(pageNumber);
+    @GetMapping("/delete/{id}")
+    String deletePost(@PathVariable String id) {
+        postService.delete(id);
         return "redirect:/post";
     }
 }

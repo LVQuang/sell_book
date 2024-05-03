@@ -1,0 +1,11 @@
+<div th:fragment = "wrongPass" th:if="${param.incorrect}">
+  <div class="alert alert-danger">
+    Password or Username is not correct!
+  </div>
+</div>
+
+<div th:fragment = "registerSucess" th:if="${param.register_success}">
+  <div class="alert alert-success">
+    Congratulate for success creating account !
+  </div>
+</div>

@@ -25,8 +25,6 @@ public class User {
     UserGender gender;
     @ManyToMany
     Set<Role> roles;
-    @ManyToMany
-    Set<Contact> contacts;
     @OneToMany(mappedBy = "user")
     Set<Post> posts;
 }

@@ -104,11 +104,6 @@ public class AuthenticateController {
         return "redirect:/auth/login?register_success";
     }
 
-    @GetMapping("/test")
-    String test() {
-        return "index";
-    }
-
     @GetMapping("/ForgotPassword")
     String getForgot(Model model){
         ForgotPasswordRequest user = new ForgotPasswordRequest();

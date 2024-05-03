@@ -18,5 +18,4 @@ public class UserResponse {
     String phone;
     String gender;
     Set<RoleResponse> roles;
-    Set<ContactResponse> contacts;
 }

@@ -58,16 +58,6 @@ public class AuthenticationService {
     @Value("${jwt.signerKey}")
     protected String SIGNER_KEY;
 
-    public boolean introspect(String token)
-            throws JOSEException, ParseException {
-
-        var jwtToken = verifyToken(token);
-
-        if(jwtToken == null)
-            return false;
-        return true;
-    }
-
     public RegisterResponse register(RegisterRequest request) {
         if(userRepository.existsByName(request.getName()))
             throw new AppException(ErrorCode.ITEM_EXISTS);

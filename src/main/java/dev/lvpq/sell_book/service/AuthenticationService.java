@@ -7,7 +7,6 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import dev.lvpq.sell_book.dto.request.*;
 import dev.lvpq.sell_book.dto.response.AuthenticationResponse;
-import dev.lvpq.sell_book.dto.response.ForgotPasswordResponse;
 import dev.lvpq.sell_book.dto.response.RegisterResponse;
 import dev.lvpq.sell_book.entity.InvalidatedToken;
 import dev.lvpq.sell_book.entity.User;
@@ -16,7 +15,6 @@ import dev.lvpq.sell_book.enums.RoleName;
 import dev.lvpq.sell_book.enums.UserGender;
 import dev.lvpq.sell_book.exception.AppException;
 import dev.lvpq.sell_book.exception.WebException;
-import dev.lvpq.sell_book.mapper.ForgotPasswordMapper;
 import dev.lvpq.sell_book.mapper.RegisterMapper;
 import dev.lvpq.sell_book.repository.InvalidatedTokenRepository;
 import dev.lvpq.sell_book.repository.RoleRepository;
@@ -27,8 +25,6 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -50,8 +46,6 @@ public class AuthenticationService {
     RoleRepository roleRepository;
     RegisterMapper registerMapper;
     PasswordEncoder passwordEncoder;
-    ForgotPasswordMapper forgotPasswordMapper;
-    JavaMailSender javaMailSender;
     InvalidatedTokenRepository invalidatedTokenRepository;
 
     @NonFinal
@@ -99,24 +93,7 @@ public class AuthenticationService {
     }
 
     public boolean checkNameExist(UserRegisterRequest user){
-        if(userRepository.existsByName(user.getName())){
-            return true;
-        }
-        return false;
-    }
-
-    public boolean checkEmailExist(ForgotPasswordRequest user){
-        if(userRepository.existsByEmail(user.getEmail())){
-            return true;
-        }
-        return false;
-    }
-
-    public boolean checkEmailExistForReset(ResetPasswordRequest user){
-        if(userRepository.existsByEmail(user.getEmail())){
-            return true;
-        }
-        return false;
+        return userRepository.existsByName(user.getName());
     }
 
     private String generateToken(User user) {
@@ -226,40 +203,5 @@ public class AuthenticationService {
                 }
             });
         return stringJoiner.toString();
-    }
-
-    public ForgotPasswordResponse forgotPassword(ForgotPasswordRequest request){
-        var user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new AppException(ErrorCode.ITEM_DONT_EXISTS));
-
-        String resetLink = "http://localhost:8080/auth/ResetPassword";
-        SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setFrom("hungnguyen1372003@gmail.com");
-        msg.setTo(user.getEmail());
-
-        msg.setSubject("Welcome To Our Website");
-        msg.setText("Hello " + user.getName() + "\n\n" + "Please click on this link to Reset your Password :"
-                + resetLink);
-
-        javaMailSender.send(msg);
-
-        return ForgotPasswordResponse.builder()
-                .email(user.getEmail())
-                .build();
-    }
-
-    public ForgotPasswordResponse resetPassword(ForgotPasswordRequest request) {
-
-        var user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new AppException(ErrorCode.ITEM_DONT_EXISTS));
-
-        if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            return null;
-        }
-
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-
-        log.info(user.getEmail());
-        return forgotPasswordMapper.toResponse(userRepository.save(user));
     }
 }

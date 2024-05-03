@@ -3,20 +3,16 @@
 <head th:replace = "~{fragments/header:: header}"></head>
 
 <body class="d-flex align-items-center justify-content-center my-5">
-    <div style = "
-                    width: 60vw;
-                    height: 70vh;
-                "
+    <div style = "width: 60vw;height: 70vh;"
             class="shadow-lg rounded d-flex align-items-center justify-content-center flex-row-reverse">
-
         <div class="form_container h-100 w-50" style="z-index: 1;">
             <form class="d-flex align-items-center justify-content-center flex-column h-100 px-5"
                   method="post"
                   style="gap: 1.5rem"
                   role= "form"
                   th:action="@{/auth/login}"
-                  th:object="${user}"
-            >
+                  th:object="${user}">
+
                 <h1>Login</h1>
 
                 <input class="form-control"  type="text" name="username"  placeholder="Username"  th:field="*{name}"  required>
@@ -29,21 +25,9 @@
                 <div th:replace = "~{error/alert:: registerSucess}"></div>
             </form>
         </div>
-
-        <div class="h-100 w-50">
-            <div class="h-100 w-100">
-                <img src="https://assets-global.website-files.com/604a97c70aee09eed25ce991/61897a35583a9b51db018d3e_MartinPublicSeating-97560-Importance-School-Library-blogbanner1.jpg"
-                     class="d-block h-100 w-100" style="object-fit: cover" alt="">
-            </div>
-        </div>
-
+        <div th:replace = "~{fragments/authImage :: image}"></div>
     </div>
-
-    <style>
-        input:focus::placeholder {
-            color: white;
-        }
-    </style>
+    <style th:replace = "~{fragments/style :: auth}"></style>
 
 </body>
 </html>

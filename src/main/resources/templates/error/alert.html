@@ -9,3 +9,9 @@
     Congratulate for success creating account !
   </div>
 </div>
+
+<div th:fragment = "existsUser" th:if="${param.user_exists_name}">
+  <div class="alert alert-danger">
+    User with this name exists in system!
+  </div>
+</div>

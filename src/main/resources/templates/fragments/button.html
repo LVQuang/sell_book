@@ -18,3 +18,9 @@
         name="login">
   <i class="fa-solid fa-magnifying-glass"></i>
 </button>
+
+<div th:fragment = "addPost" sec:authorize="hasRole('ADMIN')" class="text-center mb-5">
+  <a href="/post/addPost"  class="btn btn-success">Add
+    <i class="fa-solid fa-plus"></i>
+  </a>
+</div>

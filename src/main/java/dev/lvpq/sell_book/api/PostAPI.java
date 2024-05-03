@@ -59,11 +59,4 @@ public class PostAPI {
                 .result(postService.update(request, post))
                 .build();
     }
-
-    @GetMapping("/page/{page}")
-    ApiResponse<Page<Post>> getAllPostsPage(@PathVariable int page) {
-        return ApiResponse.<Page<Post>>builder()
-                .result(postService.getAllPostsPage(page))
-                .build();
-    }
 }

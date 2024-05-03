@@ -113,33 +113,4 @@ public class PostService {
 
         return postMapper.toResponse(post);
     }
-
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public Page<Post> getAllPostsPage(int page) {
-        var result = postRepository.findAll();
-        return getAllPostsPageImpl(page, result);
-    }
-
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public Page<Post> getAllMyPostPage(int page) {
-        var user = userService.getCurrentUser();
-        var result = postRepository.findByUser(user);
-        return getAllPostsPageImpl(page, result);
-    }
-
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    private Page<Post> getAllPostsPageImpl(int page, List<Post> result) {
-        int pageSize = 4;
-
-        if(result.size() < pageSize)
-            pageSize = result.size() ;
-
-        Pageable pageable = PageRequest.of(page, pageSize);
-
-        int start =(int) pageable.getOffset();
-        int end = Math.min( (start + pageable.getPageSize()) , result.size());
-
-        var content = result.subList(start, end);
-        return new PageImpl<>(content, pageable, result.size());
-    }
 }

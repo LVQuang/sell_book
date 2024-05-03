@@ -35,8 +35,7 @@ public class AuthenticateController {
     RegisterMapper registerMapper;
 
     @GetMapping("/login")
-    String getLogin(Model model, HttpServletRequest request)
-            throws ParseException, JOSEException {
+    String getLogin(Model model, HttpServletRequest request) throws ParseException, JOSEException {
         HttpSession session = request.getSession();
         String token =(String) session.getAttribute("myToken");
 
@@ -54,9 +53,7 @@ public class AuthenticateController {
     }
 
     @PostMapping("/login")
-    String postLogin(@Valid @ModelAttribute("user") UserLoginRequest user
-            , HttpServletRequest httpRequest)
-    {
+    String postLogin(@Valid @ModelAttribute("user") UserLoginRequest user, HttpServletRequest httpRequest) {
         var authRequest = authenticationMapper.toAuthenticationRequest(user);
         var authentication = authenticationService.authenticate(authRequest, true);
 
@@ -65,7 +62,7 @@ public class AuthenticateController {
         else
         {
             httpRequest.getSession().setAttribute("myToken", authentication.getToken());
-            return "redirect:/post/null?page=0";
+            return "redirect:/post";
         }
     }
 
@@ -92,8 +89,7 @@ public class AuthenticateController {
     }
 
     @PostMapping("/register")
-    String postRegister(@Valid @ModelAttribute("user") UserRegisterRequest user)
-    {
+    String postRegister(@Valid @ModelAttribute("user") UserRegisterRequest user) {
         var request = registerMapper.toRegisterRequest(user);
         boolean checkName = authenticationService.checkNameExist(user);
         if(checkName)

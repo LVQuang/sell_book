@@ -19,7 +19,6 @@
 
                 <input id="password"  class="form-control"  type="password" name="password"  placeholder="Password"  th:field="*{pass}"  required>
                 <button  class="btn btn-outline-success btn-lg btn-block" type="submit" name="login">Login</button>
-                <a href="/auth/ForgotPassword" class = "fs-5 text-decoration-none text-dark"> Forgot password ?</a>
                 <a href="/auth/register" class = "fs-5 text-decoration-none text-dark"> Register</a>
                 <div th:replace = "~{error/alert:: wrongPass}"></div>
                 <div th:replace = "~{error/alert:: registerSucess}"></div>

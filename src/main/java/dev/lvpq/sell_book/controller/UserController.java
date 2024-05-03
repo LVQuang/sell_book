@@ -19,13 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class UserController {
     UserService userService;
-
-    @GetMapping("/userDetail/{userId}")
-    String getUserDetail(Model model,@PathVariable String userId){
-        var user = userService.getById(userId);
-        model.addAttribute("user", user);
-        return "online_template/userDetail";
-    }
     @GetMapping("/{pageNumber}")
     String getUsers(Model model,
                    @RequestParam(name = "page",

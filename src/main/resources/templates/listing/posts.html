@@ -1,13 +1,23 @@
-<div th:fragment = "lists" class="row justify-content-center" style="margin-top: 2rem;">
+<table th:fragment = "posts" class="table container" style="text-align: center;">
   <h3 class="text-center mb-3">Posts</h3>
   <div th:replace = "~{fragments/button :: addPost}"></div>
-
-  <div th:each="post : ${posts}" class="card mx-2" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title" th:text="${post.title}"></h5>
-      <p class="card-text" th:text="${post.address}"></p>
+  <thead class="thead-light">
+  <tr>
+    <th scope="col">Title</th>
+    <th scope="col">Address</th>
+    <th scope="col">Price</th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="post : ${posts}">
+    <td th:text="${post.title}"></td>
+    <td th:text="${post.address}"></td>
+    <td th:text="${post.price}"></td>
+    <td>
       <a th:href="@{'/post/postDetail?id=' + ${post.id}}" class="btn btn-primary">Detail</a>
       <a th:href="@{'/post/delete/' + ${post.id}}" sec:authorize="hasRole('ADMIN')" class="btn btn-danger">Delete</a>
-    </div>
-  </div>
-</div>
+    </td>
+  </tr>
+  </tbody>
+</table>

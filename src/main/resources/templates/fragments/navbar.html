@@ -10,38 +10,15 @@
             <li class="nav-item">
                 <a class="nav-link"
                    sec:authorize="hasRole('USER')"
-                   href="/transaction/user/null?page=0">My Transactions
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link"
-                   sec:authorize="hasRole('USER')"
                    href="/contact/user/null?page=0">My Contacts
                 </a>
             </li>
-
             <li class="nav-item">
                 <a class="nav-link"
                    sec:authorize="hasRole('USER')"
                    href="/post/myPost/null?page=0">My Posts
                 </a>
             </li>
-
-            <li class="nav-item">
-                <a class="nav-link"
-                   sec:authorize="hasRole('ADMIN')"
-                   href="/transaction/null?page=0">Transactions
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link"
-                   sec:authorize="hasRole('ADMIN')"
-                   href="/payment/checkPay">Check Money
-                </a>
-            </li>
-
             <li class="nav-item">
                 <a class="nav-link"
                    sec:authorize="hasRole('ADMIN')"

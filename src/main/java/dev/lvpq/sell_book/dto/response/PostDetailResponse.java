@@ -23,5 +23,4 @@ public class PostDetailResponse {
     LocalDate postDate;
     PostState available;
     UserResponse user;
-    Set<TransactionResponse> transactions;
 }

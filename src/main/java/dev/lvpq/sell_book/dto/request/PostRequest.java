@@ -3,9 +3,6 @@ package dev.lvpq.sell_book.dto.request;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDate;
-import java.util.Set;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,5 +16,4 @@ public class PostRequest {
     String description;
     Double price;
     String available;
-    Set<String> transactions;
 }

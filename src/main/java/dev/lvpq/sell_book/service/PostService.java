@@ -1,19 +1,16 @@
 package dev.lvpq.sell_book.service;
 
 import dev.lvpq.sell_book.dto.request.PostRequest;
-import dev.lvpq.sell_book.entity.Post;
-import dev.lvpq.sell_book.enums.PostState;
-import dev.lvpq.sell_book.exception.AppException;
-import dev.lvpq.sell_book.mapper.PostMapper;
-import dev.lvpq.sell_book.repository.ImageRepository;
-import dev.lvpq.sell_book.repository.PostRepository;
-import dev.lvpq.sell_book.repository.TransactionRepository;
-import dev.lvpq.sell_book.repository.UserRepository;
 import dev.lvpq.sell_book.dto.response.PostDetailResponse;
 import dev.lvpq.sell_book.dto.response.PostListingResponse;
-import dev.lvpq.sell_book.entity.Image;
+import dev.lvpq.sell_book.entity.Post;
 import dev.lvpq.sell_book.enums.ErrorCode;
+import dev.lvpq.sell_book.enums.PostState;
 import dev.lvpq.sell_book.enums.TypePost;
+import dev.lvpq.sell_book.exception.AppException;
+import dev.lvpq.sell_book.mapper.PostMapper;
+import dev.lvpq.sell_book.repository.PostRepository;
+import dev.lvpq.sell_book.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -27,8 +24,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -36,10 +31,8 @@ import java.util.List;
 @Slf4j
 @Service
 public class PostService {
-    ImageRepository imageRepository;
     PostRepository postRepository;
     UserRepository userRepository;
-    TransactionRepository transactionRepository;
     UserService userService;
     PostMapper postMapper;
 
@@ -72,21 +65,10 @@ public class PostService {
         var post = postRepository
                 .findById(id).orElseThrow(() -> new AppException(ErrorCode.ITEM_DONT_EXISTS));
 
-        var transactions = post.getTransactions();
-        transactions.forEach(transaction -> transaction.setPost(null));
-        transactionRepository.saveAll(transactions);
-
-        var images = post.getImages();
-        images.forEach(image -> image.setPost(null));
-        imageRepository.saveAll(images);
-
         var user = post.getUser();
         user.getPosts().remove(post);
         userRepository.save(user);
 
-
-        post.setImages(new HashSet<>());
-        post.setTransactions(new HashSet<>());
         post.setUser(null);
         postRepository.save(post);
 
@@ -125,11 +107,6 @@ public class PostService {
                 -> new AppException(ErrorCode.ITEM_DONT_EXISTS) );
 
         postMapper.update(post, request);
-        if(request.getTransactions() != null) {
-            var transactions = transactionRepository
-                    .findAllById(request.getTransactions());
-            post.setTransactions(new HashSet<>(transactions));
-        }
         post.setAvailable(PostState.valueOf(request.getAvailable()));
 
         postRepository.save(post);
@@ -165,12 +142,4 @@ public class PostService {
         var content = result.subList(start, end);
         return new PageImpl<>(content, pageable, result.size());
     }
-
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public List<Image> getImagesByPostId(String postId) {
-        var post = postRepository.findById(postId)
-                .orElseThrow(() -> new AppException(ErrorCode.ITEM_DONT_EXISTS));
-        return new ArrayList<Image>(post.getImages());
-    }
-
 }

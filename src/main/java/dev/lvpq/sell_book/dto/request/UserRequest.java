@@ -18,7 +18,6 @@ public class UserRequest {
     String email;
     String phone;
     Set<String> roles;
-    Set<String> transactions;
     Set<String> posts;
     Set<String> contacts;
 }

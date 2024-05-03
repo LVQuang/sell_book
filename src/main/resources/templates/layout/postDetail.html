@@ -296,30 +296,6 @@
                         </div>
                     </div>
 
-                    <div class="card">
-                        <div class="body">
-                            <div class="comment-form">
-                                <div class="image-container" th:if="${images.size() > 0}">
-                                    <div class="d-flex">
-                                        <div th:each="image, iterStat : ${images}" class="image-item">
-                                            <img th:src="@{'/display/' + ${image.id}}" alt="Image" class="img-fluid" />
-                                        </div>
-                                    </div>
-                                    <div th:unless="${images.size() > 0}">
-                                        No images available.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="body">
-                            <form th:action="@{'/transaction/create/' + ${postDetailRep.id} }" method="get">
-                                <button type="submit" class="btn btn-outline-success btn-lg">Transaction</button>
-                            </form>
-                        </div>
-                    </div>
                 </div>
                 <div class="col-lg-4 col-md-12 right-box">
                     <div class="card">

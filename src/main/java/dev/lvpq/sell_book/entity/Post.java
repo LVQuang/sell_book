@@ -7,7 +7,6 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
-import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,8 +15,6 @@ import java.util.Set;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 public class Post {
-    @ManyToOne
-    User user;
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     String id;
@@ -28,8 +25,6 @@ public class Post {
     Double price;
     LocalDate postDate;
     PostState available;
-    @OneToMany
-    Set<Transaction> transactions;
-    @OneToMany
-    Set<Image> images;
+    @ManyToOne
+    User user;
 }

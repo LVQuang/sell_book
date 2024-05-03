@@ -2,9 +2,7 @@ package dev.lvpq.sell_book.controller;
 
 import dev.lvpq.sell_book.dto.request.AddPostRequest;
 import dev.lvpq.sell_book.dto.response.PostDetailResponse;
-import dev.lvpq.sell_book.entity.Image;
 import dev.lvpq.sell_book.mapper.PostMapper;
-import dev.lvpq.sell_book.service.ImageService;
 import dev.lvpq.sell_book.service.PostService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
@@ -14,12 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.List;
 
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -29,7 +21,6 @@ import java.util.List;
 public class PostController {
     PostService postService;
     PostMapper postMapper;
-    ImageService imageService;
 
     @GetMapping("/{pageNumber}")
     String getPost(Model model,
@@ -89,6 +80,13 @@ public class PostController {
         return "layout/myPosts";
     }
 
+    @GetMapping("/postDetail")
+    String getPostDetail(Model model, @RequestParam("id") String postId)
+    {
+        PostDetailResponse postDetailResponse = postService.getById(postId);
+        model.addAttribute("postDetailRep", postDetailResponse);
+        return "/layout/postDetail";
+    }
 
     @GetMapping("/addPost")
     String getAddPost(Model model)
@@ -99,49 +97,11 @@ public class PostController {
     }
 
     @PostMapping("/addPost")
-    String postAddPost(@Valid @ModelAttribute("user") AddPostRequest user, RedirectAttributes redirectAttributes){
+    String postAddPost(@Valid @ModelAttribute("user") AddPostRequest user){
         var request = postMapper.toAddPostRequest(user);
-        var post = postService.create(request);
-
-        redirectAttributes.addAttribute("post_id", post.getId());
-
-        return "redirect:/post/addImages";
+        postService.create(request);
+        return "redirect:/post/myPost/null?page=0";
     }
-
-    @GetMapping("/addImages")
-    String getAddImages(Model model, @RequestParam("post_id") String postId )
-    {
-        model.addAttribute("post_id", postId);
-        return "add/addImages";
-    }
-
-    @PostMapping("/addImages")
-    String postAddImages(@RequestParam("post_id") String postId,
-                         @RequestParam("image") List<MultipartFile> files)  throws IOException, SQLException {
-
-        if (imageService.createListImage(files, postId))
-            return "redirect:/post/1";
-        return "redirect:/post/1?outPage";
-    }
-
-    @GetMapping("/posts")
-    String getPostList(Model model)
-    {
-        return "listing/posts";
-    }
-
-    @GetMapping("/postDetail")
-    String getPostDetail(Model model, @RequestParam("id") String postId)
-    {
-        PostDetailResponse postDetailResponse = postService.getById(postId);
-        List<Image> images = postService.getImagesByPostId(postId);
-        model.addAttribute("postDetailRep", postDetailResponse);
-        model.addAttribute("images", images);
-
-        return "/online_template/postDetail";
-    }
-
-
 
     @GetMapping("/delete/{pageNumber}")
     String deletePost(@PathVariable String pageNumber) {

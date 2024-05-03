@@ -12,7 +12,6 @@ public interface UserMapper {
 
     UserResponse toResponse(User user);
     @Mapping(target = "roles", ignore = true)
-    @Mapping(target = "transactions", ignore = true)
     @Mapping(target = "contacts", ignore = true)
     @Mapping(target = "posts", ignore = true)
     void update(@MappingTarget User user, UserRequest request);

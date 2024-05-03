@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace = "~{fragments/header :: header}">
+<body>
+<section class="d-flex align-items-center justify-content-center my-5">
+        <div style = "
+                        width: 60vw;
+                        height: 70vh;
+                    " class="shadow-lg rounded align-items-center justify-content-center flex-row-reverse">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-lg-8 col-xl-6">
+                    <div class="card border-success border-top border-bottom border-3">
+                        <div class="card-body p-5">
+
+                            <p class="lead fw-bold mb-5" style="color: #f37a27;">Transaction Receipt</p>
+
+                            <div class="row">
+                                <div class=" col-6 col mb-3">
+                                    <p class="small text-muted mb-1">Transaction Date</p>
+                                    <p th:text="${transaction.transactionDate}"></p>
+                                </div>
+                                <div class=" col-6 col mb-3">
+                                    <p class="small text-muted mb-1">Sender</p>
+                                    <p th:text="${transaction.sender}"></p>
+                                </div>
+                                <div class=" col-6 col mb-3">
+                                    <p class="small text-muted mb-1">Receiver</p>
+                                    <p th:text="${transaction.receiver}"></p>
+                                </div>
+                                <div class=" col-6 col mb-3">
+                                    <p class="small text-muted mb-1">Price</p>
+                                    <p th:text="${transaction.price}"></p>
+                                </div>
+
+                                <div sec:authorize="hasRole('USER')" th:if="${transaction.state == 'Solving'}" class=" col-6 col mb-3">
+                                    <a th:href="@{'/transaction/accept/' + ${transaction.id}}" class="btn btn-success">Accept</a>
+                                </div>
+
+                                <div sec:authorize="hasRole('USER')" th:if="${transaction.state == 'Solving'}" class=" col-6 col mb-3">
+                                    <a th:href="@{'/transaction/cancel/'  + ${transaction.id}}" class="btn btn-danger">Reject</a>
+                                </div>
+                            </div>
+
+                            <div class="d-grid justify-content-center my-3">
+                                <a id="submit" href="/transaction/user/null?page=0"
+                                   class="btn btn-outline-success btn-lg">Cancel</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</section>
+
+</body>
+</html>

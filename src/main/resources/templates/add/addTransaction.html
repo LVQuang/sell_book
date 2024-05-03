@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace = "~{fragments/header :: header}">
+<body>
+<section class="d-flex align-items-center justify-content-center my-5">
+        <div style = "
+                        width: 60vw;
+                        height: 70vh;
+                    " class="shadow-lg rounded align-items-center justify-content-center flex-row-reverse">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-lg-8 col-xl-6">
+                    <div class="card border-success border-top border-bottom border-3">
+                        <div class="card-body p-5">
+
+                            <p class="lead fw-bold mb-5" style="color: #f37a27;">Transaction Receipt</p>
+
+                            <div class="row">
+                                <div class=" col-6 col mb-3">
+                                    <p class="small text-muted mb-1">Transaction Date</p>
+                                    <p th:text="${transaction.transactionDate.toString()}"></p>
+                                </div>
+                                <div class=" col-6 col mb-3">
+                                    <p class="small text-muted mb-1">Sender</p>
+                                    <p th:text="${transaction.sender}"></p>
+                                </div>
+                                <div class=" col-6 col mb-3">
+                                    <p class="small text-muted mb-1">Receiver</p>
+                                    <p th:text="${transaction.receiver}"></p>
+                                </div>
+
+                                <div class=" col-6 col mb-3">
+
+                                </div>
+                                <form
+                                        class="d-flex align-items-center justify-content-center flex-row"
+                                        method="post"
+                                        style= "gap: 1rem;"
+                                        role= "form"
+                                        th:action="@{/transaction/create}"
+                                >
+                                    <input class="form-control-sm w-50"
+                                           type="text"
+                                           name="price"
+                                           th:placeholder="${postId}"
+                                           required>
+                                    <input class="form-control" type="hidden" name="postId" th:value="${postId}">
+                                    <button th:replace = "~{fragments/button :: smallCheckBtn}"></button>
+                                    <a th:replace = "~{fragments/button :: returnMyTransactions}"></a>
+                                </form>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</section>
+
+</body>
+</html>

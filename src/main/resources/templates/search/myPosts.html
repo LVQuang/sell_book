@@ -1,0 +1,18 @@
+<form th:fragment = "myPostsPageNav"
+      th:action="@{'/post/myPost/' + ${page}}"
+      method="get"
+      class="d-flex align-items-center justify-content-center flex-row my-5">
+  <div class="form-group">
+    <label for="page">Go Page: </label>
+    <input type="number"
+           class="form-control-sm"
+           id="page" placeholder="Page"
+           name="page">
+    <div class="badge bg-success text-wrap mx-2"
+         style="width: 3rem;"
+         th:text = "'/ ' + ${totalPages}">
+    </div>
+  </div>
+  <button th:replace = "~{fragments/button :: smallSearchBtn}">
+  </button>
+</form>

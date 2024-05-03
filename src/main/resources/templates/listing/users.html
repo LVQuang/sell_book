@@ -1,0 +1,25 @@
+<table th:fragment = "users" class="table">
+  <thead class="thead-light">
+  <tr>
+    <th scope="col">Name</th>
+    <th scope="col">Email</th>
+    <th scope="col">Phone</th>
+    <th scope="col">Gender</th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="user : ${users}">
+    <td th:text="${user.name}"></td>
+    <td th:text="${user.email}"></td>
+    <td th:text="${user.phone}"></td>
+    <td th:text="${user.gender}"></td>
+    <td>
+      <a class="btn btn-primary"  th:href="@{'/user/userDetail/' + ${user.id}}">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </a>
+
+    </td>
+  </tr>
+  </tbody>
+</table>

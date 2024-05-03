@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace = "~{fragments/header :: header}">
+</head>
+
+<body class="d-flex align-items-center justify-content-center my-5">
+    <div style = "
+                        width: 40vw;
+                        height: 70vh;
+                    "
+         class="shadow-lg rounded d-flex align-items-center justify-content-center flex-row-reverse">
+
+        <div class="form_container h-100 w-100" style="z-index: 1;">
+
+                <div th:if="${param.post_exists_id}">
+                    <div class="alert alert-danger">
+                        Post with ID exists in the system !
+                    </div>
+                </div>
+
+                <form class="d-flex flex-column px-5 my-2"
+                      method="post"
+                      role="form"
+                      th:action="@{/post/addPost}"
+                      th:object="${user}"
+                >
+                    <input type="hidden" name="id" th:value="${id}">
+
+                    <h2 class="text-center mb-3">Basic information</h2>
+
+                    <input class="form-control mb-3"
+                           type="text" name="name"
+                           placeholder="Title"
+                           th:field="*{title}"
+                           required>
+
+                    <input class="form-control mb-3"
+                           type="text" name="address"
+                           placeholder="Address"
+                           th:field="*{address}"
+                           required>
+
+                    <textarea class="form-control mb-3"
+                              rows="5"
+                              placeholder="Description"
+                              th:field="*{description}"
+                              required></textarea>
+
+                    <input class="form-control mb-3"
+                           type="number"
+                           name="number"
+                           placeholder="Price"
+                           th:field="*{price}"
+                           required>
+
+                    <input class="form-control mb-3"
+                           type="text" name="date"
+                           placeholder="Posting Date"
+                           th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"
+                           required>
+
+                    <div class="col-md-12 mt-3 mb-3">
+                        <label class="mb-3 mr-1">Type: </label>
+
+                        <select class="form-select form-select-sm"
+                                aria-label=".form-select-sm example"
+                                th:field="*{type}">
+                            <option th:value="'RENT'" th:text="Rent" selected></option>
+                            <option th:value="'BUY'" th:text="Buy"></option>
+                        </select>
+
+                    </div>
+
+                    <div class="d-grid justify-content-center my-3">
+                        <button id="submit" type="submit" class="btn btn-outline-success btn-lg">Next ></button>
+                    </div>
+
+
+                </form>
+        </div>
+    </div>
+
+    <style>
+        input:focus::placeholder, textarea:focus::placeholder {
+            color: white;
+        }
+    </style>
+
+</body>
+</html>

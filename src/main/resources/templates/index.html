@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace = "~{fragments/header:: header}">
+</head>
+<body>
+
+<div class = "d-flex justify-content-center flex-column">
+    <div th:replace = "~{fragments/navbar :: navbar}"></div>
+
+    <div th:replace = "~{fragments/slider :: slider}"></div>
+
+    <div class="d-flex justify-content-center flex-column my-5">
+        <div th:replace = "~{search/postQuery :: query}"></div>
+        <div th:replace = "~{listing/posts :: lists}"></div>
+        <div class = "container">
+            <div th:replace = "~{error/outPage :: outPage}"></div>
+        </div>
+    </div>
+    <footer class="w-100" th:replace = "~{fragments/footer :: footer}"></footer>
+</div>
+
+</body>
+</html>

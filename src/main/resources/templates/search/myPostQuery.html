@@ -1,0 +1,26 @@
+<form th:fragment = "myPost"
+      class="d-flex align-items-center justify-content-center flex-column"
+      method="get"
+      style= "gap: 1rem;"
+      role= "form"
+      th:action="@{/post/user/ + ${page}}"
+>
+  <div style= "gap: 1rem;" class="d-flex align-items-center justify-content-center flex-row">
+    <input class="form-control-lg w-30" type="text" name="searchKey" placeholder="enter location">
+    <button th:replace = "~{fragments/button :: bigSearchBtn}"></button>
+  </div>
+
+  <div class="form-group">
+    <label for="page">Go Page: </label>
+    <input type="number"
+           class="form-control-sm"
+           id="page" th:placeholder = "${currentPage}"
+           name="page">
+    <div class="badge bg-success text-wrap mx-2"
+         style="width: 3rem;"
+         th:text = "'/ ' + ${totalPages}">
+    </div>
+  </div>
+
+  <input type="hidden" name="currentPage" th:value="${currentPage}">
+</form>

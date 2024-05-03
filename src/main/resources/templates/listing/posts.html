@@ -1,0 +1,33 @@
+<div th:fragment = "lists" class="row justify-content-center" style="margin-top: 2rem;">
+  <h3 class="text-center mb-3">Posts</h3>
+
+  <div th:each="post : ${posts}" class="card mx-2" style="width: 18rem;">
+    <img th:src="@{${'/display?id=29ef135c-5558-4919-9c05-9c2655ea0e60'}}" class="card-img-top" alt="">
+    <div class="card-body">
+      <h5 class="card-title" th:text="${post.title}"></h5>
+      <p class="card-text" th:text="${post.description}"></p>
+      <a th:href="@{'/post/postDetail?id=' + ${post.id}}" class="btn btn-primary">Detail</a>
+    </div>
+  </div>
+</div>
+
+<div th:fragment = "myPosts" class="row justify-content-center" style="margin-top: 2rem;">
+  <h3 class="text-center mb-3">Posts</h3>
+  <div class="text-center mb-5">
+    <a href="/post/addPost"  class="btn btn-success">Add
+      <i class="fa-solid fa-plus"></i>
+    </a>
+  </div>
+
+  <div th:each="post : ${posts}" class="card mx-2" style="width: 18rem;">
+    <img th:src="@{${'/display?id=29ef135c-5558-4919-9c05-9c2655ea0e60'}}" class="card-img-top" alt="">
+    <div class="card-body">
+      <h5 class="card-title" th:text="${post.title}"></h5>
+      <p class="card-text" th:text="${post.description}"></p>
+      <div class="row">
+        <div class="col"> <a th:href="@{'/post/postDetail?id=' + ${post.id}}" class="btn btn-primary">Detail</a></div>
+        <div class="col"> <a th:href="@{'/post/delete/' + ${post.id}}" class="btn btn-danger">Delete</a></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace = "~{fragments/header :: header}">
+</head>
+<body>
+    <div th:replace = "~{fragments/navbar :: navbar}"></div>
+
+<section class="d-flex align-items-center justify-content-center my-5">
+    <div style = "
+                width: 40vw;
+                height: 70vh;
+            " class="shadow-lg rounded align-items-center justify-content-center flex-row-reverse">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-8 col-xl-6">
+                <div class="row text-center">
+
+                    <h2 class="fw-bold mb-5">Contact Information</h2>
+
+                    <div class=" col-12 col mb-3">
+                        <p class="mb-1">Contact Date</p>
+                        <p th:text="${request.contactDate}">...</p>
+                    </div>
+
+                    <div class=" col-6 col mb-3">
+                        <p class="mb-1">Sender</p>
+                        <p th:text="${request.sender}">...</p>
+                    </div>
+
+                    <div class=" col-6 col mb-3">
+                        <p class="mb-1">Receiver</p>
+                        <p th:text="${request.receiver}">...</p>
+                    </div>
+
+                    <form method="post"
+                          role="form"
+                          th:action="@{/contact/create}"
+                    >
+                          <input class="form-control mb-3"
+                                    type="text"
+                                    style="width: 100%;"
+                                    name="message"
+                                    th:placeholder="${contactId}"
+                                    required>
+                        <input class="form-control" type="hidden" name="contactId" th:value="${contactId}">
+                        <button class="btn btn-outline-success"
+                                type="submit"
+                                name="login">
+                            <i class="fa-solid fa-check"></i>
+                        </button>
+                    </form>
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+    <div th:replace = "~{fragments/footer :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<table th:fragment = "contacts" class="table">
+  <thead class="thead-light">
+      <tr>
+        <th scope="col">Sender</th>
+        <th scope="col">Receiver</th>
+        <th scope="col">Message</th>
+        <th scope="col">Date</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr th:each="contact : ${contacts}">
+        <td th:text="${contact.sender}"></td>
+        <td th:text="${contact.receiver}"></td>
+        <td th:text="${contact.message}"></td>
+        <td th:text="${contact.contactDate.toString()}"></td>
+
+      </tr>
+  </tbody>
+</table>

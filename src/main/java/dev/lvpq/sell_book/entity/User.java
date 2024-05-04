@@ -27,6 +27,6 @@ public class User {
     Set<Role> roles;
     @OneToMany(mappedBy = "user")
     Set<Bill> bills;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",  fetch = FetchType.EAGER)
     Set<CartItem> cartItems;
 }

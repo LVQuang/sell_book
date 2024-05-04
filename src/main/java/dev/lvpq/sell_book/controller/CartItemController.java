@@ -32,7 +32,16 @@ public class CartItemController {
 
     @GetMapping("/delete/{id}")
     String deletePost(@PathVariable String id) {
-//        cartItemService.delete(id);
+        cartItemService.deleteCartItem(id);
         return "redirect:/cart";
+    }
+
+    @GetMapping("/createBill")
+    String renderBillForm() { return "add/addBill"; }
+    @PostMapping("/createBill")
+    String createBill(@RequestParam(name = "address") String address) {
+        log.info(address);
+        cartItemService.transToBill(address);
+        return "redirect:/bill";
     }
 }

@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,4 +23,6 @@ public class Bill {
     LocalDate billDate;
     @ManyToOne
     User user;
+    @OneToMany(mappedBy = "bill")
+    Set<CartItem> cartItems;
 }

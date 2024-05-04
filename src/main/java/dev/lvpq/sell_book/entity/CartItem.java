@@ -21,4 +21,6 @@ public class CartItem {
     User user;
     @OneToOne
     Post post;
+    @ManyToOne
+    Bill bill;
 }

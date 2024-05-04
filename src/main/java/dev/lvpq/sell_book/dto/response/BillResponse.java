@@ -3,15 +3,17 @@ package dev.lvpq.sell_book.dto.response;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-@Getter @Setter
+import java.time.LocalDate;
+
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CartItemResponse {
+public class BillResponse {
     String id;
-    Integer quantity;
-    Double totalPrice;
-    String postId;
-    String postTitle;
+    String deliveryAddress;
+    String billState;
+    LocalDate billDate;
 }

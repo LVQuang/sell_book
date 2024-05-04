@@ -1,0 +1,37 @@
+<div th:fragment="bill" class="d-flex align-items-center justify-content-center my-5">
+    <div style = "
+                        width: 40vw;
+                        height: 70vh;
+                    "
+         class="shadow-lg rounded d-flex align-items-center justify-content-center flex-row-reverse">
+
+        <div class="form_container h-100 w-100" style="z-index: 1;">
+            <form class="d-flex flex-column px-5 my-2"
+                  method="post"
+                  role="form"
+                  action="/cart/createBill">
+
+                <h2 class="text-center mb-3">Order Deliver Address</h2>
+
+                <input class="form-control mb-3"
+                       type="text"
+                       name="address"
+                       placeholder="Delivery Address"
+                       required>
+
+                <div class="d-grid justify-content-center my-3">
+                    <button id="submit" type="submit" class="btn btn-outline-success btn-lg">Next</button>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+    <style>
+        input:focus::placeholder, textarea:focus::placeholder {
+            color: white;
+        }
+    </style>
+</div>
+
+

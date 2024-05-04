@@ -1,9 +1,6 @@
 package dev.lvpq.sell_book.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -16,6 +13,7 @@ import lombok.experimental.FieldDefaults;
 @Entity
 public class CartItem {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     String id;
     Integer quantity;
     Double totalPrice;

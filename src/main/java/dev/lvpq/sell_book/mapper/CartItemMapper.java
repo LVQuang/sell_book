@@ -7,6 +7,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface CartItemMapper {
-    @Mapping(target = "postTitle", ignore = true)
+    @Mapping(source = "post.id", target = "postId")
+    @Mapping(source = "post.title", target = "postTitle")
     CartItemResponse toCartItemResponse(CartItem cartItem);
 }

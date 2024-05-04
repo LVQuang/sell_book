@@ -13,5 +13,6 @@ public class CartItemResponse {
     String id;
     Integer quantity;
     Double totalPrice;
+    String postId;
     String postTitle;
 }

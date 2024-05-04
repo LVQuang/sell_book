@@ -22,8 +22,8 @@ public class PostController {
     PostMapper postMapper;
 
     @GetMapping
-    String getPost(Model model) {
-        var posts = postService.getAll();
+    String getPost(Model model, @RequestParam(name = "searchKey", required = false) String searchKey) {
+        var posts = postService.getAllWithKey(searchKey);
         model.addAttribute("posts", posts);
         return "index";
     }

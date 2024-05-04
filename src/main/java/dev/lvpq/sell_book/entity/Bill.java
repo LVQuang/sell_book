@@ -1,8 +1,6 @@
 package dev.lvpq.sell_book.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -17,6 +15,7 @@ import java.time.LocalDate;
 @Entity
 public class Bill {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     String id;
     String deliveryAddress;
     String billState;

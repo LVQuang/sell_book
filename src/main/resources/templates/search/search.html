@@ -10,3 +10,16 @@
     <button th:replace = "~{fragments/button :: bigSearchBtn}"></button>
   </div>
 </form>
+
+<form sec:authorize="hasRole('USER')" th:fragment = "cart"
+      class="d-flex align-items-center justify-content-center flex-column"
+      method="post"
+      style= "gap: 1rem;"
+      role= "form"
+      th:action="@{'/cart/' + ${postDetailRep.id}}"
+>
+  <div style= "gap: 1rem;" class="d-flex align-items-center justify-content-center flex-row">
+    <input class="form-control-lg w-30" type="number" name="quantity" placeholder="Enter quantity" required>
+    <button th:replace = "~{fragments/button :: quantityBtn}"></button>
+  </div>
+</form>

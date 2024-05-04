@@ -9,6 +9,7 @@ import dev.lvpq.sell_book.enums.PostState;
 import dev.lvpq.sell_book.enums.TypePost;
 import dev.lvpq.sell_book.exception.AppException;
 import dev.lvpq.sell_book.mapper.PostMapper;
+import dev.lvpq.sell_book.repository.CartItemRepository;
 import dev.lvpq.sell_book.repository.PostRepository;
 import dev.lvpq.sell_book.repository.UserRepository;
 import lombok.AccessLevel;
@@ -32,8 +33,7 @@ import java.util.List;
 @Service
 public class PostService {
     PostRepository postRepository;
-    UserRepository userRepository;
-    UserService userService;
+    CartItemRepository cartItemRepository;
     PostMapper postMapper;
 
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
@@ -67,9 +67,14 @@ public class PostService {
 
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public PostDetailResponse update(PostRequest request, String id) {
-        var post = postRepository.findById(id).orElseThrow(()
-                -> new AppException(ErrorCode.ITEM_DONT_EXISTS) );
+        var post = postRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.ITEM_DONT_EXISTS) );
         postMapper.update(post, request);
+
+        var cartItem = post.getCartItem();
+        if(cartItem != null) {
+            cartItem.setPost(post);
+            cartItemRepository.save(cartItem);
+        }
         postRepository.save(post);
         return postMapper.toResponse(post);
     }

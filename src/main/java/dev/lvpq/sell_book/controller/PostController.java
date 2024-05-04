@@ -1,7 +1,6 @@
 package dev.lvpq.sell_book.controller;
 
 import dev.lvpq.sell_book.dto.request.AddPostRequest;
-import dev.lvpq.sell_book.dto.response.PostDetailResponse;
 import dev.lvpq.sell_book.mapper.PostMapper;
 import dev.lvpq.sell_book.service.PostService;
 import jakarta.validation.Valid;
@@ -52,6 +51,24 @@ public class PostController {
     @GetMapping("/delete/{id}")
     String deletePost(@PathVariable String id) {
         postService.delete(id);
+        return "redirect:/post";
+    }
+
+    @GetMapping("/update/{id}")
+    String getUpdatePost(@PathVariable String id, Model model) {
+        AddPostRequest post = new AddPostRequest();
+        var prePost = postService.getById(id);
+        model.addAttribute("prePost", prePost);
+        model.addAttribute("post", post);
+        model.addAttribute("id", id);
+        return "add/updatePost";
+    }
+
+    @PostMapping("/update/{id}")
+    String postUpdatePost(@Valid @ModelAttribute("post") AddPostRequest post, @PathVariable String id) {
+        log.info(id);
+        var request = postMapper.toAddPostRequest(post);
+        postService.update(request, id);
         return "redirect:/post";
     }
 }

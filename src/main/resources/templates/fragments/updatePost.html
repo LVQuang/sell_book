@@ -1,0 +1,76 @@
+<div th:fragment="post" class="d-flex align-items-center justify-content-center my-5">
+  <div style = "
+                        width: 40vw;
+                        height: 70vh;
+                    "
+       class="shadow-lg rounded d-flex align-items-center justify-content-center flex-row-reverse">
+
+    <div class="form_container h-100 w-100" style="z-index: 1;">
+
+      <form class="d-flex flex-column px-5 my-2"
+            method="post"
+            role="form"
+            th:action="@{'/post/update/' + ${id}}"
+            th:object="${post}">
+
+        <h2 class="text-center mb-3">Basic information</h2>
+
+        <input class="form-control mb-3"
+               type="text"
+               th:placeholder = "${prePost.title}"
+               th:value="${title != null ? title : prePost.title}"
+               th:field="*{title}">
+
+        <input class="form-control mb-3"
+               type="text"
+               th:placeholder = "${prePost.author}"
+               th:field="*{author}"
+               required>
+
+        <input class="form-control mb-3"
+               type="text"
+               th:placeholder = "${prePost.country}"
+               th:field="*{country}"
+               required>
+
+        <input class="form-control mb-3"
+               type="number"
+               th:placeholder = "${prePost.price}"
+               th:field="*{price}"
+               required>
+
+        <input class="form-control mb-3"
+               type="number"
+               th:placeholder = "${prePost.pageSize}"
+               th:field="*{pageSize}"
+               required>
+
+        <div class="col-md-12 mt-3 mb-3">
+          <label class="mb-3 mr-1">category: </label>
+          <select class="form-select form-select-sm"
+                  aria-label=".form-select-sm example"
+                  th:field="*{category}">
+            <option value="Romance" th:text="Romance"></option>
+            <option value="Detective" th:text="Detective"></option>
+            <option value="Action" th:text="Action"></option>
+            <option value="History" th:text="History"></option>
+          </select>
+
+        </div>
+
+        <div class="d-grid justify-content-center my-3">
+          <button id="submit" type="submit" class="btn btn-outline-success btn-lg">Next</button>
+        </div>
+
+
+      </form>
+    </div>
+  </div>
+  <style>
+    input:focus::placeholder, textarea:focus::placeholder {
+      color: white;
+    }
+  </style>
+</div>
+
+

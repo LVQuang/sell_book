@@ -24,3 +24,8 @@
     <i class="fa-solid fa-plus"></i>
   </a>
 </div>
+<div th:fragment = "payment" sec:authorize="hasRole('USER')" class="text-center mb-5">
+  <a href="#"  class="btn btn-success">Payment
+    <i class="fa-solid fa-cart-shopping"></i>
+  </a>
+</div>

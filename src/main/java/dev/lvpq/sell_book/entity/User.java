@@ -16,7 +16,7 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    String id;;
+    String id;
     @Column(nullable = false, unique = true)
     String name;
     String password;
@@ -25,4 +25,8 @@ public class User {
     UserGender gender;
     @ManyToMany
     Set<Role> roles;
+    @OneToMany(mappedBy = "user")
+    Set<Bill> bills;
+    @OneToMany(mappedBy = "user")
+    Set<CartItem> cartItems;
 }

@@ -1,0 +1,22 @@
+<table th:fragment = "posts" class="table container" style="text-align: center;">
+  <h3 class="text-center mb-3">Cart Items</h3>
+  <div th:replace = "~{fragments/button :: payment}"></div>
+  <thead class="thead-light">
+  <tr>
+    <th scope="col">Title</th>
+    <th scope="col">Author</th>
+    <th scope="col">Price</th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="cartItem : ${cartItems}">
+    <td th:text="${cartItem.postTitle}"></td>
+    <td th:text="${cartItem.quantity}"></td>
+    <td th:text="${cartItem.totalPrice}"></td>
+    <td>
+      <a th:href="@{'/cart/delete/' + ${cartItem.id}}" sec:authorize="hasRole('USER')" class="btn btn-danger">Remove</a>
+    </td>
+  </tr>
+  </tbody>
+</table>

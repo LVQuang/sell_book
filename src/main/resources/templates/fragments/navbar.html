@@ -9,6 +9,12 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link"
+                   sec:authorize="hasRole('USER')"
+                   href="/cart">Cart
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"
                    sec:authorize="isAuthenticated()"
                    href="/auth/login">Log out
                 </a>
